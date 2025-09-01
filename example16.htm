@@ -1,0 +1,164 @@
+<div id="inspector-pik-screensaver">
+    <div class="crl-terminal">
+        <div class="terminal-header">ФСТЭК РФ // СИСТЕМА ПИК-399 v.7.7</div>
+        <div class="terminal-output">
+            > ИНИЦИАЛИЗАЦИЯ ПРОТОКОЛА "НОЧНОЙ ДОЗОР"...<br>
+            > ЗАГРУЗКА МОДУЛЯ АУДИТА...<br>
+            > СКАНИРОВАНИЕ СЕКТОРА 7G...<br>
+            <span class="blink">▋</span>
+        </div>
+        <div class="terminal-status">
+            <div class="status-bar" style="--width: 30%;">СТАТУС: <span class="green">НОРМА</span></div>
+            <div class="code-name">КОД: "БУРАТИНО"</div>
+        </div>
+    </div>
+    <div class="retro-scan"></div>
+    <div class="pixel-grid"></div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    
+    #inspector-pik-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #0a0a0a;
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(0, 80, 0, 0.1) 0%, transparent 20%),
+            radial-gradient(circle at 90% 80%, rgba(0, 100, 0, 0.1) 0%, transparent 20%);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Share Tech Mono', monospace;
+        color: #33ff33;
+        overflow: hidden;
+    }
+    
+    .crl-terminal {
+        width: 80%;
+        max-width: 700px;
+        background: rgba(0, 20, 0, 0.8);
+        border: 2px solid #00cc00;
+        padding: 20px;
+        box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+        position: relative;
+        z-index: 2;
+    }
+    
+    .terminal-header {
+        text-align: center;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #00cc00;
+        color: #ffff33;
+        text-shadow: 0 0 5px #ffff33;
+        letter-spacing: 2px;
+    }
+    
+    .terminal-output {
+        min-height: 150px;
+        line-height: 1.5;
+        text-shadow: 0 0 3px #33ff33;
+        overflow: hidden;
+    }
+    
+    .blink {
+        animation: blink 0.9s infinite;
+    }
+    
+    .terminal-status {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        font-size: 0.9rem;
+    }
+    
+    .status-bar {
+        color: #ccc;
+    }
+    
+    .green {
+        color: #33ff33;
+    }
+    
+    .code-name {
+        color: #ff9900;
+        font-style: italic;
+    }
+    
+    .retro-scan {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(to bottom, 
+                   rgba(0, 255, 0, 0.03) 50%, 
+                   transparent 50%);
+        background-size: 100% 4px;
+        pointer-events: none;
+        z-index: 1;
+        animation: scanmove 0.1s infinite linear;
+    }
+    
+    .pixel-grid {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-image: 
+            linear-gradient(to right, rgba(0, 100, 0, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 100, 0, 0.1) 1px, transparent 1px);
+        background-size: 20px 20px;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+    
+    @keyframes scanmove {
+        0% { transform: translateY(-100%); }
+        100% { transform: translateY(100%); }
+    }
+</style>
+
+<script>
+    (function inspectorPik() {
+        const outputEl = document.querySelector('.terminal-output');
+        const statusBar = document.querySelector('.status-bar');
+        const phrases = [
+            "> ПРОВЕРКА ЦЕЛОСТНОСТИ ДАННЫХ...",
+            "> ДОСТУП К СИСТЕМЕ: РАЗРЕШЁН",
+            "> КОНТРОЛЬ ЗА ПАРАМЕТРАМИ: АКТИВЕН",
+            "> НАРУШЕНИЙ НЕ ОБНАРУЖЕНО",
+            "> ПРОДОЛЖИТЕЛЬНОСТЬ РАБОТЫ: 24784 ЧАСА",
+            "> ВЕРСИЯ: ФСТЭК-ЯДРО v.7.7",
+            "> СОВМЕСТИМОСТЬ: ЗОЛОТОЙ СЕРТИФИКАТ"
+        ];
+        
+        let lineCount = 0;
+        let progress = 30;
+        
+        function addLine() {
+            if (lineCount > 15) {
+                outputEl.innerHTML = outputEl.innerHTML.split('<br>').slice(1).join('<br>');
+            }
+            
+            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+            outputEl.innerHTML += '<br>' + randomPhrase;
+            outputEl.scrollTop = outputEl.scrollHeight;
+            
+            lineCount++;
+            
+            // Обновляем прогресс-бар
+            progress = 30 + Math.floor(Math.random() * 60);
+            statusBar.style.setProperty('--width', `${progress}%`);
+        }
+        
+        // Добавляем новую строку каждые 1.5-3 секунды
+        setInterval(addLine, 2000);
+    })();
+</script>
