@@ -1,0 +1,196 @@
+<div id="satellite-screensaver">
+    <div class="scan-lines"></div>
+    <div class="satellite-header">
+        <div class="title">СИСТЕМА СПУТНИКОВОГО МОНИТОРИНГА</div>
+        <div class="subtitle">ГЛОБАЛЬНОЕ ПОКРЫТИЕ • РЕЖИМ РЕАЛЬНОГО ВРЕМЕНИ</div>
+    </div>
+    <div class="earth-container">
+        <div class="earth"></div>
+        <div class="orbit" id="orbit-1"></div>
+        <div class="orbit" id="orbit-2"></div>
+        <div class="satellite" id="satellite-1">🛰</div>
+        <div class="satellite" id="satellite-2">🛰</div>
+        <div class="satellite" id="satellite-3">🛰</div>
+    </div>
+    <div class="data-panel">
+        <div class="data-row">
+            <span class="label">ВЫСОТА:</span>
+            <span class="value">35786 KM</span>
+        </div>
+        <div class="data-row">
+            <span class="label">СКОРОСТЬ:</span>
+            <span class="value">3.07 KM/S</span>
+        </div>
+        <div class="data-row">
+            <span class="label">ПОКРЫТИЕ:</span>
+            <span class="value">100%</span>
+        </div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap');
+    
+    #satellite-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        background-image: radial-gradient(circle at center, #001133 0%, #000011 70%);
+        z-index: 10000;
+        overflow: hidden;
+        font-family: 'Orbitron', sans-serif;
+        color: #00aaff;
+    }
+    
+    .scan-lines {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(to bottom, 
+                   rgba(0, 100, 255, 0.03) 50%, 
+                   transparent 50%);
+        background-size: 100% 4px;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .satellite-header {
+        position: absolute;
+        top: 30px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 3;
+    }
+    
+    .title {
+        font-size: 1.5rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+        text-shadow: 0 0 10px #00aaff;
+    }
+    
+    .subtitle {
+        font-size: 0.9rem;
+        color: #0088cc;
+    }
+    
+    .earth-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px;
+        height: 300px;
+        z-index: 2;
+    }
+    
+    .earth {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        background: #002255;
+        box-shadow: 
+            inset 0 0 50px #000,
+            0 0 30px rgba(0, 100, 255, 0.5);
+        background-image: 
+            radial-gradient(circle at 30% 40%, #004477 0%, #002244 70%),
+            radial-gradient(circle at 60% 30%, #005588 0%, transparent 40%),
+            radial-gradient(circle at 40% 70%, #003366 0%, transparent 40%);
+        animation: rotate-earth 120s infinite linear;
+    }
+    
+    .orbit {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border: 1px solid rgba(0, 100, 255, 0.3);
+        border-radius: 50%;
+    }
+    
+    #orbit-1 {
+        width: 250px;
+        height: 250px;
+    }
+    
+    #orbit-2 {
+        width: 280px;
+        height: 280px;
+    }
+    
+    .satellite {
+        position: absolute;
+        font-size: 24px;
+        animation-timing-function: linear;
+        animation-iteration-count: infinite;
+        z-index: 3;
+        text-shadow: 0 0 10px #00aaff;
+    }
+    
+    #satellite-1 {
+        animation-name: orbit-1;
+        animation-duration: 20s;
+    }
+    
+    #satellite-2 {
+        animation-name: orbit-2;
+        animation-duration: 25s;
+        animation-delay: -5s;
+    }
+    
+    #satellite-3 {
+        animation-name: orbit-2;
+        animation-duration: 30s;
+        animation-delay: -10s;
+    }
+    
+    .data-panel {
+        position: absolute;
+        bottom: 30px;
+        right: 30px;
+        background: rgba(0, 20, 40, 0.8);
+        border: 1px solid #0088cc;
+        padding: 15px;
+        border-radius: 5px;
+        z-index: 3;
+    }
+    
+    .data-row {
+        margin: 8px 0;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        width: 200px;
+    }
+    
+    .label {
+        color: #00aaff;
+    }
+    
+    .value {
+        color: #00ff66;
+        font-weight: 500;
+    }
+    
+    @keyframes rotate-earth {
+        from { transform: translate(-50%, -50%) rotate(0deg); }
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+    @keyframes orbit-1 {
+        from { transform: rotate(0deg) translate(125px) rotate(0deg); }
+        to { transform: rotate(360deg) translate(125px) rotate(-360deg); }
+    }
+    
+    @keyframes orbit-2 {
+        from { transform: rotate(0deg) translate(140px) rotate(0deg); }
+        to { transform: rotate(360deg) translate(140px) rotate(-360deg); }
+    }
+</style>
