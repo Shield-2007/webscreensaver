@@ -1,0 +1,34 @@
+Прежде чем показывать заставку, нам нужно проверять текущее время
+(условие автора - показ в нерабочее время: с 17:00 до 10:00).
+Вот основа, которую можно добавить в ваш основной JavaScript-файл:
+
+
+// Функция для проверки, активно ли нерабочее время
+function isAfterHours() {
+    const now = new Date();
+    const hours = now.getHours();
+    // Нерабочее время: с 17:00 (17) до 10:00 (10)
+    return hours >= 17 || hours < 10;
+}
+
+// Функция для переключения между основным режимом и скринсейвером
+function toggleScreensaver() {
+    const mainContent = document.getElementById('main-content'); // Ваш основной контент
+    const screensaver = document.getElementById('screensaver'); // Контейнер скринсейвера
+
+    if (isAfterHours()) {
+        // Показываем заставку, скрываем основной контент
+        if (mainContent) mainContent.style.display = 'none';
+        if (screensaver) screensaver.style.display = 'block';
+    } else {
+        // Показываем основной контент, скрываем заставку
+        if (mainContent) mainContent.style.display = 'block';
+        if (screensaver) screensaver.style.display = 'none';
+    }
+}
+
+// Проверяем при загрузке страницы и затем каждую минуту
+window.onload = function() {
+    toggleScreensaver();
+    setInterval(toggleScreensaver, 60000); // Проверяем каждую минуту
+};
