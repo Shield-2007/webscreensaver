@@ -1,0 +1,162 @@
+<div id="crypto-screensaver">
+    <div class="crypto-header">
+        <div class="crypto-title">СИСТЕМА КРИПТОГРАФИЧЕСКОЙ ЗАЩИТЫ ИНФОРМАЦИИ</div>
+        <div class="crypto-subtitle">ГОСТ Р 34.10-2012 • ГОСТ Р 34.11-2012</div>
+    </div>
+    <div class="code-window">
+        <div class="code-line">> Инициализация модуля шифрования...</div>
+        <div class="code-line">> Загрузка криптографических ключей...</div>
+        <div class="code-line">> Проверка целостности данных...</div>
+        <div class="code-line">> Активация механизма защиты от НСД...</div>
+        <div id="code-output"></div>
+        <div class="code-cursor">█</div>
+    </div>
+    <div class="crypto-status">
+        <div class="status-item">АЛГОРИТМ: <span class="value">Кузнечик</span></div>
+        <div class="status-item">РЕЖИМ: <span class="value">Гаммирование</span></div>
+        <div class="status-item">СТАТУС: <span class="value active">ШИФРОВАНИЕ</span></div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500&display=swap');
+    
+    #crypto-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #001000;
+        background-image: 
+            radial-gradient(circle at 10% 20%, rgba(0, 80, 0, 0.2) 0%, transparent 30%),
+            radial-gradient(circle at 90% 80%, rgba(0, 100, 0, 0.2) 0%, transparent 30%);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        font-family: 'JetBrains Mono', monospace;
+        color: #00cc44;
+        overflow: hidden;
+        padding: 30px;
+        box-sizing: border-box;
+    }
+    
+    .crypto-header {
+        text-align: center;
+        margin-bottom: 30px;
+        border-bottom: 1px solid #004400;
+        padding-bottom: 15px;
+    }
+    
+    .crypto-title {
+        font-size: 1.3rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+        margin-bottom: 5px;
+        text-shadow: 0 0 5px #00cc44;
+    }
+    
+    .crypto-subtitle {
+        font-size: 0.9rem;
+        color: #008800;
+        font-weight: 300;
+    }
+    
+    .code-window {
+        flex-grow: 1;
+        background: rgba(0, 20, 0, 0.7);
+        border: 1px solid #004400;
+        padding: 20px;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 0 20px rgba(0, 80, 0, 0.5);
+    }
+    
+    .code-line {
+        margin-bottom: 8px;
+        opacity: 0.9;
+    }
+    
+    #code-output {
+        white-space: pre;
+        line-height: 1.4;
+    }
+    
+    .code-cursor {
+        display: inline;
+        animation: blink 1s infinite;
+        color: #00ff66;
+    }
+    
+    .crypto-status {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+        background: rgba(0, 30, 0, 0.7);
+        padding: 12px 20px;
+        border-radius: 4px;
+        border: 1px solid #004400;
+    }
+    
+    .status-item {
+        font-size: 0.9rem;
+    }
+    
+    .value {
+        color: #00ff66;
+        font-weight: 500;
+    }
+    
+    .active {
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes blink {
+        0%, 50% { opacity: 1; }
+        51%, 100% { opacity: 0; }
+    }
+    
+    @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+    }
+</style>
+
+<script>
+    (function cryptoAnimation() {
+        const outputElement = document.getElementById('code-output');
+        const phrases = [
+            "7F83B165 5FF1FA30 EAB394D9 B5C895CD A4D4D2A5 9F63FFA1 FF2DF8EF 2E5B397E",
+            "A3B1D3C5 E7F1A9B5 C9D7E5F3 A1B9C7D5 E3F1A9B7 C5D3E1F9 A5B3C1D7 E5F3A1B9",
+            "4A7D9F2B 5C8E1A6D 3B0F294E 5D7C8B1A 9E4F2D3B 6C8A0E1D 7F9B2C4D 5E6A8B0C",
+            "E2D5F1A9 C8B4A6D2 F1E3C5B7 A9D1E3F5 B7C9D1E3 F5A7B9C1 D3E5F7A9 B1C3D5E7"
+        ];
+        
+        let lineCount = 0;
+        
+        function addCodeLine() {
+            if (lineCount > 20) {
+                outputElement.textContent = outputElement.textContent.split('\n').slice(1).join('\n');
+            }
+            
+            const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+            outputElement.textContent += '\n' + randomPhrase;
+            outputElement.scrollTop = outputElement.scrollHeight;
+            
+            lineCount++;
+        }
+        
+        // Добавляем новую строку каждые 0.5-2 секунды
+        setInterval(addCodeLine, 800);
+        
+        // Меняем статус каждые 5 секунд
+        const statusEl = document.querySelector('.status-item:nth-child(3) .value');
+        const statuses = ['ШИФРОВАНИЕ', 'ДЕШИФРОВАНИЕ', 'ПРОВЕРКА ЦЕЛОСТНОСТИ', 'ГЕНЕРАЦИЯ КЛЮЧЕЙ'];
+        let statusIndex = 0;
+        
+        setInterval(() => {
+            statusIndex = (statusIndex + 1) % statuses.length;
+            statusEl.textContent = statuses[statusIndex];
+        }, 5000);
+        
+    })();
+</script>
