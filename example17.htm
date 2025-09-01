@@ -1,0 +1,114 @@
+<div id="cyber-regulator-screensaver">
+    <div class="grid-pattern"></div>
+    <div class="main-display">
+        <div class="glados-face">( ͡° ͜ʖ ͡°)</div>
+        <div class="glados-text">О, привет! Я слежу за твоими данными. Они в безопасности. Наверное.</div>
+    </div>
+    <div class="warning-sign">⚠️ ВНИМАНИЕ! ИДЁТ ПРОЦЕДУРА КОНТРОЛЯ! ⚠️</div>
+    <div class="portal-gun">🔫</div>
+    <div class="humor-text">ФСТЭК рекомендует: всегда носите с собой запасной пароль.</div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap');
+    
+    #cyber-regulator-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Orbitron', sans-serif;
+        color: #fff;
+        overflow: hidden;
+    }
+    
+    .grid-pattern {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: 
+            linear-gradient(to right, #ff00cc 1px, transparent 1px),
+            linear-gradient(to bottom, #ff00cc 1px, transparent 1px);
+        background-size: 30px 30px;
+        opacity: 0.1;
+        animation: grid-move 20s infinite linear;
+        z-index: 1;
+    }
+    
+    .main-display {
+        text-align: center;
+        z-index: 2;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 30px;
+        border: 3px solid #00ffff;
+        border-radius: 10px;
+        box-shadow: 0 0 30px #00ffff;
+    }
+    
+    .glados-face {
+        font-size: 4rem;
+        margin-bottom: 20px;
+        animation: glados-face 5s infinite;
+    }
+    
+    .glados-text {
+        font-size: 1.5rem;
+        color: #00ffff;
+        max-width: 600px;
+        line-height: 1.5;
+        text-shadow: 0 0 10px #00ffff;
+    }
+    
+    .warning-sign {
+        position: absolute;
+        bottom: 100px;
+        font-size: 1.5rem;
+        color: #ff9900;
+        text-shadow: 0 0 10px #ff9900;
+        animation: warning-pulse 2s infinite;
+        z-index: 2;
+    }
+    
+    .portal-gun {
+        position: absolute;
+        top: 50%;
+        right: 20%;
+        font-size: 3rem;
+        animation: portal-float 4s infinite ease-in-out;
+        z-index: 2;
+    }
+    
+    .humor-text {
+        position: absolute;
+        bottom: 30px;
+        font-size: 1rem;
+        color: #ccc;
+        font-style: italic;
+        z-index: 2;
+    }
+    
+    @keyframes grid-move {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(-30px, -30px); }
+    }
+    
+    @keyframes glados-face {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.1); }
+    }
+    
+    @keyframes warning-pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+    
+    @keyframes portal-float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-20px); }
+    }
+</style>
