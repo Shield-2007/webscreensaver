@@ -1,0 +1,133 @@
+<div id="game-screensaver">
+    <div class="game-over">ИГРА ОКОНЧЕНА. НАЖМИТЕ ПРОБЕЛ, ЧТОБЫ НАЧАТЬ СНАЧАЛА.</div>
+    <canvas id="snake-canvas"></canvas>
+</div>
+
+<style>
+    #game-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #111;
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Press Start 2P', cursive, monospace;
+        color: #fff;
+    }
+    #snake-canvas {
+        border: 3px solid #333;
+        background-color: #000;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    }
+    .game-over {
+        position: absolute;
+        z-index: 10;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #e74c3c;
+        text-shadow: 0 0 5px #e74c3c;
+        display: none;
+    }
+</style>
+
+<script>
+    (function snakeGame() {
+        const canvas = document.getElementById('snake-canvas');
+        const ctx = canvas.getContext('2d');
+        const gameOverEl = document.querySelector('.game-over');
+        const box = 20; // размер одного сегмента змейки и еды
+        let snake = [];
+        let food = {};
+        let d = 'RIGHT';
+        let score = 0;
+        let game;
+
+        // Размер поля (делаем его пропорциональным экрану, но с фиксированным размером ячейки)
+        canvas.width = Math.floor(window.innerWidth * 0.8 / box) * box;
+        canvas.height = Math.floor(window.innerHeight * 0.8 / box) * box;
+
+        snake[0] = { x: 10 * box, y: 10 * box };
+
+        // Создаём еду
+        function createFood() {
+            food = {
+                x: Math.floor(Math.random() * (canvas.width / box)) * box,
+                y: Math.floor(Math.random() * (canvas.height / box)) * box
+            };
+        }
+        createFood();
+
+        // Направление движения
+        document.addEventListener('keydown', direction);
+        function direction(event) {
+            if(event.keyCode == 37 && d != 'RIGHT') d = 'LEFT';
+            else if(event.keyCode == 38 && d != 'DOWN') d = 'UP';
+            else if(event.keyCode == 39 && d != 'LEFT') d = 'RIGHT';
+            else if(event.keyCode == 40 && d != 'UP') d = 'DOWN';
+            else if(event.keyCode == 32) location.reload(); // Пробел для перезапуска
+        }
+
+        function draw() {
+            // Фон
+            ctx.fillStyle = '#000';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Змейка
+            for(let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i == 0) ? '#00ff00' : '#33cc33';
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+                ctx.strokeStyle = '#000';
+                ctx.strokeRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            // Еда
+            ctx.fillStyle = '#ff3300';
+            ctx.fillRect(food.x, food.y, box, box);
+
+            // Голова змейки
+            let snakeX = snake[0].x;
+            let snakeY = snake[0].y;
+
+            // Направление
+            if(d == 'LEFT') snakeX -= box;
+            if(d == 'UP') snakeY -= box;
+            if(d == 'RIGHT') snakeX += box;
+            if(d == 'DOWN') snakeY += box;
+
+            // Проверка на съедание еды
+            if(snakeX == food.x && snakeY == food.y) {
+                score++;
+                createFood();
+            } else {
+                snake.pop();
+            }
+
+            // Проверка на столкновение
+            let newHead = {x: snakeX, y: snakeY};
+            if(snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height || collision(newHead, snake)) {
+                clearInterval(game);
+                gameOverEl.style.display = 'block';
+            }
+            snake.unshift(newHead);
+
+            // Счёт
+            ctx.fillStyle = 'white';
+            ctx.font = '15px "Press Start 2P", cursive, monospace';
+            ctx.fillText('Счёт: ' + score, box, 1.5 * box);
+        }
+
+        function collision(head, array) {
+            for(let i = 0; i < array.length; i++) {
+                if(head.x == array[i].x && head.y == array[i].y) return true;
+            }
+            return false;
+        }
+
+        // Запуск игры
+        game = setInterval(draw, 150);
+    })();
+</script>
+<!-- Можно подключить пиксельный шрифт для полной атмосферы -->
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
