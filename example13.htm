@@ -1,0 +1,209 @@
+<div id="situation-map-screensaver">
+    <div class="overlay"></div>
+    <div class="map-grid"></div>
+    <div class="map-title">СИСТЕМА МОНИТОРИНГА ОПЕРАТИВНОЙ ОБСТАНОВКИ</div>
+    <div class="timestamp" id="map-timestamp">00:00:00</div>
+    <div class="status-board">
+        <div class="status-item">СТАТУС СИСТЕМЫ: <span class="green">НОРМА</span></div>
+        <div class="status-item">ОБНАРУЖЕНО ОБЪЕКТОВ: <span id="object-count">0</span></div>
+        <div class="status-item">РЕЖИМ: <span class="blue">ПЛАНОВЫЙ</span></div>
+    </div>
+    <canvas id="map-canvas"></canvas>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono:wght@400;700&display=swap');
+    
+    #situation-map-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #0a0a1a;
+        z-index: 10000;
+        overflow: hidden;
+        font-family: 'Ubuntu Mono', monospace;
+        color: #00ccff;
+    }
+    
+    .overlay {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(rgba(0, 20, 40, 0.7) 1px, transparent 1px),
+                   linear-gradient(90deg, rgba(0, 20, 40, 0.7) 1px, transparent 1px);
+        background-size: 40px 40px;
+        z-index: 1;
+    }
+    
+    .map-grid {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(to right, rgba(0, 100, 200, 0.1) 1px, transparent 1px),
+                   linear-gradient(to bottom, rgba(0, 100, 200, 0.1) 1px, transparent 1px);
+        background-size: 50px 50px;
+        z-index: 2;
+    }
+    
+    .map-title {
+        position: absolute;
+        top: 20px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00ccff;
+        letter-spacing: 2px;
+        z-index: 3;
+    }
+    
+    .timestamp {
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1.2rem;
+        color: #00aacc;
+        z-index: 3;
+    }
+    
+    .status-board {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        background: rgba(0, 20, 40, 0.8);
+        border: 1px solid #00aacc;
+        padding: 15px;
+        border-radius: 5px;
+        z-index: 3;
+    }
+    
+    .status-item {
+        margin: 5px 0;
+        font-size: 0.9rem;
+    }
+    
+    .green { color: #00ff00; }
+    .blue { color: #00ccff; }
+    
+    #map-canvas {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 2;
+    }
+</style>
+
+<script>
+    (function situationMap() {
+        const canvas = document.getElementById('map-canvas');
+        const ctx = canvas.getContext('2d');
+        const timestampEl = document.getElementById('map-timestamp');
+        const objectCountEl = document.getElementById('object-count');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        
+        let objects = [];
+        let paths = [];
+        
+        // Класс для объекта на карте
+        class MapObject {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = 3 + Math.random() * 4;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = (Math.random() - 0.5) * 0.5;
+                this.color = `hsl(${200 + Math.random() * 40}, 100%, 60%)`;
+                this.history = [];
+                this.maxHistory = 20;
+            }
+            
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                
+                // Добавляем текущую позицию в историю
+                this.history.push({x: this.x, y: this.y});
+                if (this.history.length > this.maxHistory) {
+                    this.history.shift();
+                }
+                
+                // Отскакиваем от границ
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            
+            draw() {
+                // Рисуем хвост
+                for (let i = 0; i < this.history.length; i++) {
+                    const point = this.history[i];
+                    const alpha = i / this.history.length;
+                    const size = this.size * alpha;
+                    
+                    ctx.beginPath();
+                    ctx.arc(point.x, point.y, size, 0, Math.PI * 2);
+                    ctx.fillStyle = `hsla(${200 + Math.random() * 40}, 100%, 60%, ${alpha * 0.3})`;
+                    ctx.fill();
+                }
+                
+                // Рисуем сам объект
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+                
+                // Внешнее свечение
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size + 3, 0, Math.PI * 2);
+                ctx.strokeStyle = this.color;
+                ctx.lineWidth = 1;
+                ctx.stroke();
+            }
+        }
+        
+        // Создаём начальные объекты
+        for (let i = 0; i < 15; i++) {
+            objects.push(new MapObject());
+        }
+        
+        // Обновляем временную метку
+        function updateTimestamp() {
+            const now = new Date();
+            timestampEl.textContent = now.toLocaleTimeString('ru-RU');
+        }
+        updateTimestamp();
+        setInterval(updateTimestamp, 1000);
+        
+        function animate() {
+            // Затемняем canvas, но не полностью, чтобы сетка была видна
+            ctx.fillStyle = 'rgba(10, 10, 30, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            // Обновляем и рисуем объекты
+            objects.forEach(obj => {
+                obj.update();
+                obj.draw();
+            });
+            
+            // Обновляем счетчик объектов
+            objectCountEl.textContent = objects.length;
+            
+            // Изредка добавляем новые объекты
+            if (Math.random() < 0.01 && objects.length < 30) {
+                objects.push(new MapObject());
+            }
+            
+            // Изредка удаляем объекты
+            if (Math.random() < 0.005 && objects.length > 10) {
+                objects.shift();
+            }
+            
+            requestAnimationFrame(animate);
+        }
+        
+        animate();
+    })();
+</script>
