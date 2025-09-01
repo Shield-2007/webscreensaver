@@ -1,0 +1,70 @@
+<div id="matrix-rain">
+    <div class="title">ЦЕНТР ИНЖЕНЕРНОЙ БЕЗОПАСНОСТИ</div>
+    <div class="subtitle">СИСТЕМА ЗАЩИТЫ АКТИВИРОВАНА</div>
+    <canvas id="canvas"></canvas>
+</div>
+
+<style>
+    #matrix-rain {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        color: #0F0; /* Классический зелёный терминальный цвет */
+        font-family: 'Courier New', monospace;
+        overflow: hidden;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .title, .subtitle {
+        z-index: 2;
+        text-align: center;
+        text-shadow: 0 0 10px #0F0;
+        margin-bottom: 20px;
+    }
+    .title {
+        font-size: 2.5rem;
+        font-weight: bold;
+    }
+    .subtitle {
+        font-size: 1.5rem;
+    }
+    #canvas {
+        position: absolute;
+        top: 0; left: 0;
+        z-index: 1;
+    }
+</style>
+
+<script>
+    (function matrixRain() {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const chars = "アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZФСТЭКFSB";
+        const fontSize = 14;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+        for(let i = 0; i < columns; i++) drops[i] = 1;
+
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#0F0';
+            ctx.font = `${fontSize}px monospace`;
+
+            for(let i = 0; i < drops.length; i++) {
+                const text = chars[Math.floor(Math.random() * chars.length)];
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    })();
+</script>
