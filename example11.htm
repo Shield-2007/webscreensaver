@@ -1,0 +1,111 @@
+<div id="perimeter-screensaver">
+    <div class="sensor left-top"></div>
+    <div class="sensor right-top"></div>
+    <div class="sensor left-bottom"></div>
+    <div class="sensor right-bottom"></div>
+    
+    <div class="laser-horizontal"></div>
+    <div class="laser-vertical"></div>
+    
+    <div class="status-text">КОНТУР ОХРАНЫ АКТИВЕН</div>
+    <div class="sensor-status">ДАТЧИКИ: <span class="active">В НОРМЕ</span></div>
+</div>
+
+<style>
+    #perimeter-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        z-index: 10000;
+        overflow: hidden;
+    }
+    
+    .sensor {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        border: 2px solid #ff0000;
+        border-radius: 50%;
+        background: #300;
+    }
+    
+    .sensor::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 10px; height: 10px;
+        background: #f00;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        animation: sensor-pulse 2s infinite;
+    }
+    
+    .left-top { top: 40px; left: 40px; }
+    .right-top { top: 40px; right: 40px; }
+    .left-bottom { bottom: 40px; left: 40px; }
+    .right-bottom { bottom: 40px; right: 40px; }
+    
+    .laser-horizontal {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #f00, transparent);
+        animation: laser-scan-x 4s infinite linear;
+        box-shadow: 0 0 10px 1px rgba(255, 0, 0, 0.5);
+    }
+    
+    .laser-vertical {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, #f00, transparent);
+        animation: laser-scan-y 3.5s infinite linear;
+        box-shadow: 0 0 10px 1px rgba(255, 0, 0, 0.5);
+    }
+    
+    .status-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-family: monospace;
+        font-size: 1.2rem;
+        text-shadow: 0 0 5px #fff;
+        letter-spacing: 2px;
+    }
+    
+    .sensor-status {
+        position: absolute;
+        bottom: 80px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: #aaa;
+        font-family: monospace;
+        font-size: 0.9rem;
+    }
+    
+    .active {
+        color: #0f0;
+    }
+    
+    @keyframes sensor-pulse {
+        0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        50% { opacity: 0.5; transform: translate(-50%, -50%) scale(1.2); }
+    }
+    
+    @keyframes laser-scan-x {
+        0% { transform: translateY(-50%) rotate(0deg); }
+        100% { transform: translateY(-50%) rotate(360deg); }
+    }
+    
+    @keyframes laser-scan-y {
+        0% { transform: translateX(-50%) rotate(0deg); }
+        100% { transform: translateX(-50%) rotate(360deg); }
+    }
+</style>
