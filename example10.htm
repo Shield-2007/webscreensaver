@@ -1,0 +1,151 @@
+<div id="cyber-security-screensaver">
+    <div class="cyber-title">СИСТЕМА КИБЕРБЕЗОПАСНОСТИ</div>
+    <div class="cyber-subtitle">СКАНИРОВАНИЕ НА УЯЗВИМОСТИ</div>
+    <div class="terminal" id="cyber-terminal"></div>
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-text">СТАТУС: <span class="status-text">В РАБОТЕ</span></div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+    
+    #cyber-security-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #000;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #00ff00;
+        font-family: 'Share Tech Mono', monospace;
+        overflow: hidden;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+    
+    .cyber-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        text-shadow: 0 0 10px #00ff00;
+        letter-spacing: 2px;
+        text-align: center;
+    }
+    
+    .cyber-subtitle {
+        font-size: 1.2rem;
+        color: #00cc00;
+        margin-bottom: 30px;
+        text-align: center;
+    }
+    
+    .terminal {
+        width: 80%;
+        height: 200px;
+        border: 1px solid #00ff00;
+        background: rgba(0, 30, 0, 0.3);
+        padding: 15px;
+        overflow: hidden;
+        box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+        margin-bottom: 30px;
+    }
+    
+    .progress-container {
+        width: 80%;
+        text-align: center;
+    }
+    
+    .progress-bar {
+        width: 100%;
+        height: 20px;
+        border: 1px solid #00ff00;
+        background: rgba(0, 30, 0, 0.3);
+        margin-bottom: 15px;
+        overflow: hidden;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        width: 30%;
+        background: linear-gradient(90deg, #00aa00, #00ff00);
+        animation: progress-pulse 3s infinite, progress-move 15s infinite linear;
+    }
+    
+    .progress-text {
+        font-size: 1rem;
+        color: #00cc00;
+    }
+    
+    .status-text {
+        color: #00ff00;
+        animation: status-blink 2s infinite;
+    }
+    
+    @keyframes progress-pulse {
+        0%, 100% { opacity: 0.7; }
+        50% { opacity: 1; }
+    }
+    
+    @keyframes progress-move {
+        0% { width: 30%; }
+        50% { width: 80%; }
+        100% { width: 30%; }
+    }
+    
+    @keyframes status-blink {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.5; }
+    }
+</style>
+
+<script>
+    (function cyberTerminal() {
+        const terminal = document.getElementById('cyber-terminal');
+        const messages = [
+            "> Инициализация системы защиты...",
+            "> Проверка целостности данных...",
+            "> Сканирование на наличие угроз...",
+            "> Мониторинг сетевой активности...",
+            "> Проверка системы шифрования...",
+            "> Аудит журналов доступа...",
+            "> Обновление сигнатур угроз...",
+            "> Резервное копирование данных...",
+            "> Проверка системы завершена. Угроз не обнаружено."
+        ];
+        
+        let messageIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        
+        function typeText() {
+            const currentMessage = messages[messageIndex];
+            
+            if (!isDeleting && charIndex < currentMessage.length) {
+                terminal.innerHTML += currentMessage.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 50);
+            } else if (isDeleting && charIndex > 0) {
+                terminal.innerHTML = terminal.innerHTML.slice(0, -1);
+                charIndex--;
+                setTimeout(typeText, 30);
+            } else {
+                isDeleting = !isDeleting;
+                if (!isDeleting) {
+                    messageIndex = (messageIndex + 1) % messages.length;
+                }
+                setTimeout(typeText, 1000);
+            }
+            
+            // Прокрутка вниз
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+        
+        typeText();
+    })();
+</script>
