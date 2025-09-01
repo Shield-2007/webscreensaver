@@ -1,0 +1,88 @@
+<div id="bond-screensaver">
+    <div id="time">00:00:00</div>
+    <div id="date">Понедельник, 1 января</div>
+    <div id="logo">ООО "Ваша Безопасность"</div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400&display=swap');
+
+    #bond-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #e6e6e6;
+        font-family: 'Roboto Mono', monospace;
+        overflow: hidden;
+    }
+    #time {
+        font-size: 7vw; /* Отзывчивый размер шрифта */
+        font-weight: 300;
+        letter-spacing: -0.5vw;
+        margin-bottom: 1rem;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    }
+    #date {
+        font-size: 1.5vw;
+        font-weight: 300;
+        opacity: 0.7;
+        margin-bottom: 3rem;
+        letter-spacing: 0.5vw;
+    }
+    #logo {
+        font-size: 1vw;
+        position: absolute;
+        bottom: 5%;
+        opacity: 0.4;
+        letter-spacing: 0.3vw;
+    }
+
+    /* Эффект сканирующей линии */
+    #bond-screensaver::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+        animation: scanline 8s linear infinite;
+    }
+
+    @keyframes scanline {
+        0% { top: 0%; }
+        50% { top: 100%; }
+        100% { top: 0%; }
+    }
+</style>
+
+<script>
+    (function bondClock() {
+        const timeElement = document.getElementById('time');
+        const dateElement = document.getElementById('date');
+
+        function updateClock() {
+            const now = new Date();
+
+            // Форматируем время
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            timeElement.textContent = `${hours}:${minutes}:${seconds}`;
+
+            // Форматируем дату
+            const options = { weekday: 'long', day: 'numeric', month: 'long' };
+            const dateString = now.toLocaleDateString('ru-RU', options);
+            // Делаем первую букву заглавной
+            dateElement.textContent = dateString.charAt(0).toUpperCase() + dateString.slice(1);
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+    })();
+</script>
