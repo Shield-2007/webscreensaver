@@ -1,0 +1,128 @@
+<div id="radar-screensaver">
+    <div class="radar-text">РАДАРНЫЙ КОНТУР АКТИВИРОВАН</div>
+    <div class="radar"></div>
+</div>
+
+<style>
+    #radar-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: radial-gradient(ellipse at center, #0a2e38 0%, #000000 70%);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #00ffcc;
+        font-family: monospace;
+        overflow: hidden;
+    }
+    .radar-text {
+        position: absolute;
+        top: 20%;
+        z-index: 2;
+        font-size: 1.5rem;
+        text-shadow: 0 0 5px #00ffcc;
+        letter-spacing: 2px;
+    }
+    .radar {
+        position: relative;
+        width: 300px;
+        height: 300px;
+        border-radius: 50%;
+        border: 3px solid #00ffcc;
+        box-shadow: 0 0 20px #00ffcc, inset 0 0 100px rgba(0, 255, 204, 0.2);
+        background: transparent;
+    }
+    .radar::before {
+        content: '';
+        position: absolute;
+        top: -3px; left: -3px;
+        width: calc(100% + 6px);
+        height: calc(100% + 6px);
+        border-radius: 50%;
+        border: 15px solid transparent;
+        border-top: 15px solid #00ffcc;
+        animation: radar-sweep 3s linear infinite;
+        box-shadow: 0 -10px 15px -5px rgba(0, 255, 204, 0.5);
+    }
+    .radar::after {
+        content: '';
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 10px; height: 10px;
+        background: #00ffcc;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 15px 5px rgba(0, 255, 204, 0.5);
+    }
+
+    /* Концентрические круги на радаре */
+    .radar span {
+        position: absolute;
+        top: 50%; left: 50%;
+        border: 1px solid rgba(0, 255, 204, 0.3);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .radar span:nth-child(1) { width: 60%; height: 60%; }
+    .radar span:nth-child(2) { width: 80%; height: 80%; }
+    .radar span:nth-child(3) { width: 100%; height: 100%; }
+
+    @keyframes radar-sweep {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    (function radarBlips() {
+        const radar = document.querySelector('.radar');
+        // Создаём концентрические круги
+        for (let i = 0; i < 3; i++) {
+            let circle = document.createElement('span');
+            radar.appendChild(circle);
+        }
+
+        function createBlip() {
+            let blip = document.createElement('div');
+            blip.classList.add('blip');
+            radar.appendChild(blip);
+
+            // Случайная позиция на радаре
+            let angle = Math.random() * 360;
+            let distance = 30 + Math.random() * 120; // % от центра
+            let x = 50 + distance * Math.cos(angle * Math.PI / 180);
+            let y = 50 + distance * Math.sin(angle * Math.PI / 180);
+
+            blip.style.left = x + '%';
+            blip.style.top = y + '%';
+
+            // Удаляем "цель" через случайное время
+            setTimeout(() => {
+                blip.remove();
+            }, 2000);
+        }
+        // Создаём новые "цели" каждые 0.5-2 секунды
+        setInterval(createBlip, 500);
+    })();
+</script>
+
+<style>
+    /* Стили для мигающих целей на радаре */
+    .blip {
+        position: absolute;
+        width: 8px; height: 8px;
+        background: #ff3333;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px 2px rgba(255, 51, 51, 0.7);
+        animation: blip-fade 2s forwards;
+        z-index: 10;
+    }
+    @keyframes blip-fade {
+        0% { opacity: 0; }
+        10% { opacity: 1; }
+        100% { opacity: 0; }
+    }
+</style>
