@@ -1,0 +1,155 @@
+<div id="state-standard-screensaver">
+    <div class="emblem-container">
+        <div class="russian-eagle"></div>
+        <div class="shield"></div>
+    </div>
+    <div class="text-container">
+        <h1>ФЕДЕРАЛЬНАЯ СЛУЖБА БЕЗОПАСНОСТИ</h1>
+        <div class="divider"></div>
+        <p>СИСТЕМА КОНТРОЛЯ И ЗАЩИТЫ ИНФОРМАЦИИ</p>
+        <p class="status">РЕЖИМ ОЖИДАНИЯ АКТИВИРОВАН</p>
+        <p class="time" id="state-time">20:05:43</p>
+        <p class="date" id="state-date">11.10.2023</p>
+    </div>
+    <div class="scan-line"></div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300;400;700&display=swap');
+    
+    #state-standard-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #d0d0e0;
+        font-family: 'Roboto Condensed', sans-serif;
+        overflow: hidden;
+    }
+    
+    .emblem-container {
+        position: relative;
+        width: 120px;
+        height: 150px;
+        margin-bottom: 40px;
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+    }
+    
+    .russian-eagle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(45deg, #d0d0e0 30%, #a0a0b0 100%);
+        clip-path: path("M60,0 L120,50 L100,150 L20,150 L0,50 Z");
+    }
+    
+    .shield {
+        position: absolute;
+        top: 30px;
+        left: 30px;
+        width: 60px;
+        height: 70px;
+        background: #800000;
+        clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+    }
+    
+    .text-container {
+        text-align: center;
+        z-index: 2;
+    }
+    
+    .text-container h1 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        margin-bottom: 15px;
+        color: #d0d0e0;
+        text-transform: uppercase;
+    }
+    
+    .divider {
+        width: 300px;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #d0d0e0, transparent);
+        margin: 20px auto;
+    }
+    
+    .text-container p {
+        font-size: 1.2rem;
+        margin: 8px 0;
+        letter-spacing: 1.5px;
+        font-weight: 300;
+    }
+    
+    .status {
+        color: #a0a0b0;
+        font-style: italic;
+        margin-top: 25px !important;
+    }
+    
+    .time {
+        font-size: 1.8rem !important;
+        font-weight: 400 !important;
+        letter-spacing: 3px !important;
+        color: #d0d0e0;
+        margin-top: 20px !important;
+    }
+    
+    .date {
+        font-size: 1rem !important;
+        color: #a0a0b0;
+    }
+    
+    .scan-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+        animation: scan 8s linear infinite;
+        box-shadow: 0 0 15px 2px rgba(255, 255, 255, 0.3);
+    }
+    
+    @keyframes scan {
+        0% { top: 0%; }
+        50% { top: 100%; }
+        100% { top: 0%; }
+    }
+</style>
+
+<script>
+    (function stateStandardClock() {
+        const timeElement = document.getElementById('state-time');
+        const dateElement = document.getElementById('state-date');
+        
+        function updateClock() {
+            const now = new Date();
+            
+            // Форматируем время
+            const timeString = now.toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            // Форматируем дату
+            const dateString = now.toLocaleDateString('ru-RU', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+            
+            timeElement.textContent = timeString;
+            dateElement.textContent = dateString;
+        }
+        
+        updateClock();
+        setInterval(updateClock, 1000);
+    })();
+</script>
