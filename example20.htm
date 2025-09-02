@@ -1,0 +1,280 @@
+<div id="digital-fortress-screensaver">
+    <div class="defense-grid"></div>
+    <div class="energy-barrier"></div>
+    
+    <div class="fortress-content">
+        <div class="system-header">
+            <div class="system-icon">🛡️</div>
+            <div class="system-title">
+                <h1>ЦИФРОВАЯ КРЕПОСТЬ</h1>
+                <p>СИСТЕМА ЗАЩИТЫ АКТИВИРОВАНА</p>
+            </div>
+        </div>
+        
+        <div class="security-monitor">
+            <div class="monitor-row">
+                <span class="monitor-label">СТАТУС СИСТЕМЫ</span>
+                <span class="monitor-value">НОРМА</span>
+            </div>
+            <div class="monitor-row">
+                <span class="monitor-label">УРОВЕНЬ ЗАЩИТЫ</span>
+                <span class="monitor-value">МАКСИМАЛЬНЫЙ</span>
+            </div>
+            <div class="monitor-row">
+                <span class="monitor-label">ПОПЫТКИ ДОСТУПА</span>
+                <span class="monitor-value">0</span>
+            </div>
+        </div>
+        
+        <div class="defense-mechanism">
+            <div class="mechanism-item">
+                <div class="mechanism-progress" style="--progress: 90%"></div>
+                <span class="mechanism-label">ШИФРОВАНИЕ</span>
+            </div>
+            <div class="mechanism-item">
+                <div class="mechanism-progress" style="--progress: 85%"></div>
+                <span class="mechanism-label">КОНТРОЛЬ ЦЕЛОСТНОСТИ</span>
+            </div>
+            <div class="mechanism-item">
+                <div class="mechanism-progress" style="--progress: 95%"></div>
+                <span class="mechanism-label">АУТЕНТИФИКАЦИЯ</span>
+            </div>
+        </div>
+        
+        <div class="fortress-datetime">
+            <div class="fortress-time" id="fortress-time">20:05:43</div>
+            <div class="fortress-date" id="fortress-date">11 октября 2023 г.</div>
+        </div>
+    </div>
+    
+    <div class="legal-notice">
+        <p>Деятельность осуществляется в соответствии с законодательством Российской Федерации</p>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap');
+    
+    #digital-fortress-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, #001000 0%, #002000 50%, #001000 100%);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Roboto', sans-serif;
+        color: #e0e0e0;
+        overflow: hidden;
+    }
+    
+    .defense-grid {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-image: 
+            linear-gradient(to right, rgba(0, 150, 0, 0.1) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(0, 150, 0, 0.1) 1px, transparent 1px);
+        background-size: 40px 40px;
+        animation: grid-move 20s infinite linear;
+    }
+    
+    .energy-barrier {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(90deg, 
+                   transparent, 
+                   rgba(0, 200, 100, 0.1), 
+                   transparent);
+        animation: barrier-scan 8s infinite linear;
+    }
+    
+    .fortress-content {
+        text-align: center;
+        z-index: 2;
+        max-width: 800px;
+        padding: 30px;
+        background: rgba(0, 20, 0, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 200, 100, 0.3);
+    }
+    
+    .system-header {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+    }
+    
+    .system-icon {
+        font-size: 3rem;
+        margin-right: 20px;
+        filter: drop-shadow(0 0 5px rgba(0, 200, 100, 0.7));
+    }
+    
+    .system-title h1 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        margin-bottom: 5px;
+        color: #e0e0e0;
+        text-transform: uppercase;
+    }
+    
+    .system-title p {
+        font-size: 1rem;
+        color: #4caf50;
+        letter-spacing: 1px;
+    }
+    
+    .security-monitor {
+        margin-bottom: 30px;
+        padding: 20px;
+        background: rgba(0, 30, 0, 0.5);
+        border-radius: 5px;
+    }
+    
+    .monitor-row {
+        display: flex;
+        justify-content: space-between;
+        margin: 12px 0;
+        padding: 8px 15px;
+        background: rgba(0, 40, 0, 0.3);
+        border-radius: 3px;
+    }
+    
+    .monitor-label {
+        font-weight: 300;
+        color: #b0b0b0;
+    }
+    
+    .monitor-value {
+        font-weight: 500;
+        color: #4caf50;
+        font-family: 'Roboto Mono', monospace;
+    }
+    
+    .defense-mechanism {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 30px;
+        gap: 15px;
+    }
+    
+    .mechanism-item {
+        flex: 1;
+        text-align: center;
+    }
+    
+    .mechanism-progress {
+        height: 8px;
+        background: rgba(0, 100, 0, 0.3);
+        border-radius: 4px;
+        margin-bottom: 8px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .mechanism-progress::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 0;
+        height: 100%;
+        width: var(--progress);
+        background: linear-gradient(90deg, #4caf50, #8bc34a);
+        border-radius: 4px;
+        animation: progress-pulse 2s infinite alternate;
+    }
+    
+    .mechanism-label {
+        font-size: 0.8rem;
+        color: #a0a0a0;
+    }
+    
+    .fortress-datetime {
+        margin-bottom: 20px;
+    }
+    
+    .fortress-time {
+        font-size: 2.2rem;
+        font-family: 'Roboto Mono', monospace;
+        letter-spacing: 3px;
+        color: #e0e0e0;
+        margin-bottom: 5px;
+    }
+    
+    .fortress-date {
+        font-size: 1.1rem;
+        color: #a0a0a0;
+    }
+    
+    .legal-notice {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+        z-index: 2;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    
+    @keyframes grid-move {
+        0% { background-position: 0 0; }
+        100% { background-position: 40px 40px; }
+    }
+    
+    @keyframes barrier-scan {
+        0% { transform: translateX(-100%); }
+        100% { transform: translateX(100%); }
+    }
+    
+    @keyframes progress-pulse {
+        0% { opacity: 0.7; }
+        100% { opacity: 1; }
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        .system-header { flex-direction: column; }
+        .system-icon { margin-right: 0; margin-bottom: 15px; }
+        .defense-mechanism { flex-direction: column; }
+        h1 { font-size: 1.4rem; }
+        .fortress-time { font-size: 1.8rem; }
+    }
+</style>
+
+<script>
+    (function digitalFortressClock() {
+        const timeElement = document.getElementById('fortress-time');
+        const dateElement = document.getElementById('fortress-date');
+        
+        function updateClock() {
+            const now = new Date();
+            
+            const timeString = now.toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const dateString = now.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            timeElement.textContent = timeString;
+            dateElement.textContent = dateString;
+        }
+        
+        updateClock();
+        setInterval(updateClock, 1000);
+    })();
+</script>
