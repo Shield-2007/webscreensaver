@@ -1,0 +1,219 @@
+<div id="techno-shield-screensaver">
+    <div class="hexagon-grid"></div>
+    <div class="pulse-ring"></div>
+    
+    <div class="main-content">
+        <div class="security-badge">
+            <div class="badge-icon">🔒</div>
+            <div class="badge-text">СИСТЕМА АКТИВИРОВАНА</div>
+        </div>
+        
+        <h1>РЕЖИМ КОНТРОЛЯ БЕЗОПАСНОСТИ</h1>
+        
+        <div class="status-panel">
+            <div class="status-item">
+                <span class="status-label">ЦЕЛОСТНОСТЬ ДАННЫХ</span>
+                <span class="status-value">100%</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">КОНФИДЕНЦИАЛЬНОСТЬ</span>
+                <span class="status-value">ОБЕСПЕЧЕНА</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">ДОСТУП</span>
+                <span class="status-value">ОГРАНИЧЕН</span>
+            </div>
+        </div>
+        
+        <div class="datetime-panel">
+            <div class="time" id="shield-time">20:05:43</div>
+            <div class="date" id="shield-date">11 октября 2023 г.</div>
+        </div>
+    </div>
+    
+    <div class="security-principles">
+        <p>Во всем руководствуемся принципами законности, профессиональной компетентности и сохранения государственной тайны</p>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;500&family=Roboto:wght@300;400;500&display=swap');
+    
+    #techno-shield-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 50%, #0a0a2a 100%);
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Roboto', sans-serif;
+        color: #e0e0e0;
+        overflow: hidden;
+    }
+    
+    .hexagon-grid {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: 
+            linear-gradient(120deg, rgba(0, 100, 200, 0.1) 0%, transparent 25%),
+            linear-gradient(240deg, rgba(0, 100, 200, 0.1) 0%, transparent 25%),
+            linear-gradient(360deg, rgba(0, 100, 200, 0.1) 0%, transparent 25%);
+        background-size: 100px 100px;
+        opacity: 0.3;
+        animation: grid-move 20s infinite linear;
+    }
+    
+    .pulse-ring {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        width: 300px; height: 300px;
+        border: 2px solid rgba(0, 150, 255, 0.5);
+        border-radius: 50%;
+        animation: pulse-ring 4s infinite ease-out;
+    }
+    
+    .main-content {
+        text-align: center;
+        z-index: 2;
+        max-width: 800px;
+        padding: 30px;
+        background: rgba(0, 10, 30, 0.7);
+        border-radius: 10px;
+        box-shadow: 0 0 30px rgba(0, 100, 200, 0.3);
+    }
+    
+    .security-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+    
+    .badge-icon {
+        font-size: 2.5rem;
+        margin-right: 15px;
+        filter: drop-shadow(0 0 5px rgba(0, 150, 255, 0.7));
+    }
+    
+    .badge-text {
+        font-size: 1.2rem;
+        font-weight: 500;
+        letter-spacing: 1.5px;
+        color: #4fc3f7;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+        color: #e0e0e0;
+        text-transform: uppercase;
+    }
+    
+    .status-panel {
+        margin-bottom: 30px;
+    }
+    
+    .status-item {
+        display: flex;
+        justify-content: space-between;
+        margin: 15px 0;
+        padding: 10px 20px;
+        background: rgba(0, 30, 60, 0.5);
+        border-left: 3px solid #4fc3f7;
+    }
+    
+    .status-label {
+        font-weight: 300;
+        color: #b0b0b0;
+    }
+    
+    .status-value {
+        font-weight: 500;
+        color: #4fc3f7;
+        font-family: 'Roboto Mono', monospace;
+    }
+    
+    .datetime-panel {
+        margin-bottom: 20px;
+    }
+    
+    .time {
+        font-size: 2.2rem;
+        font-family: 'Roboto Mono', monospace;
+        letter-spacing: 3px;
+        color: #e0e0e0;
+        margin-bottom: 5px;
+    }
+    
+    .date {
+        font-size: 1.1rem;
+        color: #a0a0b0;
+    }
+    
+    .security-principles {
+        position: absolute;
+        bottom: 30px;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-style: italic;
+        z-index: 2;
+        padding: 0 20px;
+        box-sizing: border-box;
+    }
+    
+    @keyframes grid-move {
+        0% { background-position: 0 0; }
+        100% { background-position: 100px 100px; }
+    }
+    
+    @keyframes pulse-ring {
+        0% { width: 100px; height: 100px; opacity: 1; }
+        100% { width: 500px; height: 500px; opacity: 0; }
+    }
+    
+    /* Адаптивность */
+    @media (max-width: 768px) {
+        h1 { font-size: 1.4rem; }
+        .time { font-size: 1.8rem; }
+        .status-item { flex-direction: column; text-align: left; }
+    }
+</style>
+
+<script>
+    (function technoShieldClock() {
+        const timeElement = document.getElementById('shield-time');
+        const dateElement = document.getElementById('shield-date');
+        
+        function updateClock() {
+            const now = new Date();
+            
+            const timeString = now.toLocaleTimeString('ru-RU', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            
+            const dateString = now.toLocaleDateString('ru-RU', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            timeElement.textContent = timeString;
+            dateElement.textContent = dateString;
+        }
+        
+        updateClock();
+        setInterval(updateClock, 1000);
+    })();
+</script>
