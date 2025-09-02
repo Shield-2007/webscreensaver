@@ -1,0 +1,265 @@
+<div id="jormungandr-screensaver">
+    <div class="ocean-depths"></div>
+    <div class="serpent" id="serpent-body">
+        <div class="serpent-head">
+            <div class="serpent-eye"></div>
+        </div>
+    </div>
+    
+    <div class="viking-ship">
+        <div class="sail"></div>
+        <div class="dragon-head"></div>
+    </div>
+    
+    <div class="depth-indicator">
+        <span>ГЛУБИНА: </span>
+        <span id="depth-value">157М</span>
+    </div>
+    
+    <div class="norse-compass">
+        <div class="compass-point" data-direction="N">N</div>
+        <div class="compass-point" data-direction="E">E</div>
+        <div class="compass-point" data-direction="S">S</div>
+        <div class="compass-point" data-direction="W">W</div>
+        <div class="compass-needle"></div>
+    </div>
+    
+    <div class="runestone">
+        <div class="runestone-text">ᚦᚨᛏ ᛁᛋ ᚾᛟᛏ ᛞᛖᚨᛏᚺ ᛏᚺᚨᛏ ᛁᛋ ᛏᚺᛖ ᛖᚾᛞ</div>
+        <div class="runestone-translation">That is not death that is the end</div>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+    
+    #jormungandr-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(180deg, #041a2e 0%, #0a2b4e 40%, #083358 100%);
+        z-index: 10000;
+        overflow: hidden;
+        font-family: 'MedievalSharp', cursive;
+        color: #a8c6e0;
+    }
+    
+    .ocean-depths {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-image: 
+            radial-gradient(circle at 20% 30%, rgba(0, 100, 150, 0.3) 0%, transparent 20%),
+            radial-gradient(circle at 80% 70%, rgba(0, 70, 120, 0.3) 0%, transparent 20%),
+            linear-gradient(180deg, transparent 70%, rgba(0, 0, 0, 0.7) 100%);
+        animation: water-shimmer 15s infinite alternate;
+    }
+    
+    .serpent {
+        position: absolute;
+        bottom: 30%; left: -300px;
+        width: 600px; height: 40px;
+        background: linear-gradient(to right, #1a3b2a, #2d5e46, #1a3b2a);
+        border-radius: 20px;
+        animation: serpent-swim 30s infinite linear;
+        z-index: 2;
+    }
+    
+    .serpent-head {
+        position: absolute;
+        right: -20px; top: -10px;
+        width: 60px; height: 60px;
+        background: #2d5e46;
+        border-radius: 50%;
+        transform: rotate(10deg);
+    }
+    
+    .serpent-eye {
+        position: absolute;
+        top: 20px; right: 10px;
+        width: 15px; height: 15px;
+        background: #ff0000;
+        border-radius: 50%;
+        box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
+        animation: eye-glow 3s infinite alternate;
+    }
+    
+    .viking-ship {
+        position: absolute;
+        bottom: 20%; right: -200px;
+        width: 150px; height: 80px;
+        animation: ship-float 40s infinite linear;
+        z-index: 3;
+    }
+    
+    .sail {
+        position: absolute;
+        top: -60px; left: 50px;
+        width: 40px; height: 70px;
+        background: linear-gradient(to right, #d4af37, #f5e9c8);
+        clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
+        animation: sail-billow 5s infinite alternate ease-in-out;
+    }
+    
+    .dragon-head {
+        position: absolute;
+        top: -30px; left: 0;
+        width: 30px; height: 30px;
+        background: #5a3921;
+        clip-path: polygon(0 50%, 100% 0, 100% 100%);
+    }
+    
+    .depth-indicator {
+        position: absolute;
+        bottom: 20px; left: 20px;
+        font-size: 1.2rem;
+        color: #a8c6e0;
+        text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
+        z-index: 2;
+    }
+    
+    .norse-compass {
+        position: absolute;
+        top: 20px; right: 20px;
+        width: 100px; height: 100px;
+        border: 2px solid #d4af37;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2;
+    }
+    
+    .compass-point {
+        position: absolute;
+        font-size: 1rem;
+        color: #d4af37;
+    }
+    
+    .compass-point[data-direction="N"] { top: 5px; left: 50%; transform: translateX(-50%); }
+    .compass-point[data-direction="E"] { top: 50%; right: 5px; transform: translateY(-50%); }
+    .compass-point[data-direction="S"] { bottom: 5px; left: 50%; transform: translateX(-50%); }
+    .compass-point[data-direction="W"] { top: 50%; left: 5px; transform: translateY(-50%); }
+    
+    .compass-needle {
+        position: absolute;
+        width: 2px; height: 40px;
+        background: #d4af37;
+        transform-origin: bottom center;
+        animation: compass-spin 20s infinite linear;
+    }
+    
+    .runestone {
+        position: absolute;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(90, 57, 33, 0.8);
+        border: 2px solid #5a3921;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        z-index: 2;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    }
+    
+    .runestone-text {
+        font-size: 2rem;
+        color: #d4af37;
+        margin-bottom: 10px;
+    }
+    
+    .runestone-translation {
+        font-size: 1rem;
+        color: #a8c6e0;
+        font-style: italic;
+    }
+    
+    @keyframes water-shimmer {
+        0% { background-position: 0 0, 0 0; }
+        100% { background-position: 50px 50px, -50px -50px; }
+    }
+    
+    @keyframes serpent-swim {
+        0% { left: -300px; transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-20px) rotate(-2deg); }
+        50% { transform: translateY(0) rotate(0deg); }
+        75% { transform: translateY(20px) rotate(2deg); }
+        100% { left: calc(100% + 300px); transform: translateY(0) rotate(0deg); }
+    }
+    
+    @keyframes eye-glow {
+        0% { box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5); }
+        100% { box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.8); }
+    }
+    
+    @keyframes ship-float {
+        0% { right: -200px; transform: translateY(0) rotate(0deg); }
+        25% { transform: translateY(-10px) rotate(2deg); }
+        50% { transform: translateY(0) rotate(0deg); }
+        75% { transform: translateY(10px) rotate(-2deg); }
+        100% { right: calc(100% + 200px); transform: translateY(0) rotate(0deg); }
+    }
+    
+    @keyframes sail-billow {
+        0% { transform: translateX(0) skewX(0deg); }
+        100% { transform: translateX(5px) skewX(5deg); }
+    }
+    
+    @keyframes compass-spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+</style>
+
+<script>
+    (function jormungandrScreensaver() {
+        // Анимация изменения глубины
+        const depthElement = document.getElementById('depth-value');
+        let depth = 157;
+        
+        setInterval(() => {
+            depth = 150 + Math.floor(Math.random() * 20);
+            depthElement.textContent = `${depth}М`;
+        }, 3000);
+        
+        // Создание пузырей воздуха
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.classList.add('bubble');
+            
+            const size = 2 + Math.random() * 8;
+            const left = Math.random() * 100;
+            const duration = 5 + Math.random() * 10;
+            
+            bubble.style.width = `${size}px`;
+            bubble.style.height = `${size}px`;
+            bubble.style.left = `${left}%`;
+            bubble.style.bottom = '0';
+            bubble.style.position = 'absolute';
+            bubble.style.background = 'rgba(255, 255, 255, 0.5)';
+            bubble.style.borderRadius = '50%';
+            bubble.style.animation = `bubble-rise ${duration}s linear forwards`;
+            
+            document.getElementById('jormungandr-screensaver').appendChild(bubble);
+            
+            // Удаление пузыря после завершения анимации
+            setTimeout(() => {
+                bubble.remove();
+            }, duration * 1000);
+        }
+        
+        // Добавление стилей для пузырей
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes bubble-rise {
+                0% { transform: translateY(0) scale(1); opacity: 0.7; }
+                50% { transform: translateY(-50vh) scale(1.2); opacity: 0.4; }
+                100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Создание пузырей каждые 0.5-2 секунды
+        setInterval(createBubble, 800);
+    })();
+</script>
