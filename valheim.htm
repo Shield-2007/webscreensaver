@@ -1,0 +1,264 @@
+<div id="yggdrasil-screensaver">
+    <div class="world-tree"></div>
+    <div class="runes-overlay"></div>
+    <div class="nine-worlds">
+        <div class="realm" id="asgard"></div>
+        <div class="realm" id="midgard"></div>
+        <div class="realm" id="helheim"></div>
+        <div class="realm" id="vanaheim"></div>
+        <div class="realm" id="alfheim"></div>
+        <div class="realm" id="jotunheim"></div>
+        <div class="realm" id="nidavellir"></div>
+        <div class="realm" id="muspelheim"></div>
+        <div class="realm" id="niflheim"></div>
+    </div>
+    
+    <div class="valheim-title">
+        <h1>VALHEIM</h1>
+        <p>Десятый мир, чистилище для отвергнутых</p>
+    </div>
+    
+    <div class="odin-warning">
+        <div class="raven">Хугин</div>
+        <p>Один наблюдает</p>
+    </div>
+    
+    <div class="runic-display">
+        <div class="rune" data-rune="fehu">ᚠ</div>
+        <div class="rune" data-rune="uruz">ᚢ</div>
+        <div class="rune" data-rune="thurisaz">ᚦ</div>
+        <div class="rune" data-rune="ansuz">ᚨ</div>
+        <div class="rune" data-rune="raido">ᚱ</div>
+        <div class="rune" data-rune="kaunan">ᚲ</div>
+        <div class="rune" data-rune="gebo">ᚷ</div>
+        <div class="rune" data-rune="wunjo">ᚹ</div>
+    </div>
+    
+    <div class="norse-text">
+        <p>Þórr berr hamarinn Mjölnir</p>
+    </div>
+</div>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
+    
+    #yggdrasil-screensaver {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: linear-gradient(135deg, #0a1420 0%, #1a2639 50%, #0a1420 100%);
+        z-index: 10000;
+        overflow: hidden;
+        font-family: 'MedievalSharp', cursive;
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .world-tree {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-image: 
+            radial-gradient(circle at 50% 50%, transparent 60%, rgba(0, 30, 0, 0.7) 100%),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50,10 L55,40 L45,40 L50,70 L55,90 L45,90 L50,70 L45,40 L40,70 L35,90 L30,70 L35,40 L30,10 L35,40 L40,10 L45,40 L50,10 Z' fill='none' stroke='%235a3921' stroke-width='0.5'/%3E%3C/svg%3E");
+        background-size: 300px 500px, 200px 300px;
+        background-position: center center;
+        background-repeat: no-repeat;
+        opacity: 0.7;
+        animation: tree-pulse 15s infinite ease-in-out;
+    }
+    
+    .runes-overlay {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-image: 
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M10,10 L20,20 M30,10 L40,20 M50,10 L60,20 M70,10 L80,20 M90,10 L100,20 M10,30 L20,40 M30,30 L40,40 M50,30 L60,40 M70,30 L80,40 M90,30 L100,40 M10,50 L20,60 M30,50 L40,60 M50,50 L60,60 M70,50 L80,60 M90,50 L100,60 M10,70 L20,80 M30,70 L40,80 M50,70 L60,80 M70,70 L80,80 M90,70 L100,80 M10,90 L20,100 M30,90 L40,100 M50,90 L60,100 M70,90 L80,100 M90,90 L100,100' stroke='%23333' stroke-width='0.3' fill='none'/%3E%3C/svg%3E");
+        opacity: 0.1;
+    }
+    
+    .nine-worlds {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+    }
+    
+    .realm {
+        position: absolute;
+        width: 30px; height: 30px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(200, 160, 100, 0.7) 0%, transparent 70%);
+        animation: realm-orbit 300s infinite linear;
+        opacity: 0.6;
+    }
+    
+    #asgard { top: 15%; left: 50%; animation-duration: 200s; }
+    #midgard { top: 50%; left: 85%; animation-duration: 250s; }
+    #helheim { top: 85%; left: 50%; animation-duration: 350s; }
+    #vanaheim { top: 50%; left: 15%; animation-duration: 400s; }
+    #alfheim { top: 25%; left: 75%; animation-duration: 320s; }
+    #jotunheim { top: 75%; left: 75%; animation-duration: 280s; }
+    #nidavellir { top: 75%; left: 25%; animation-duration: 380s; }
+    #muspelheim { top: 25%; left: 25%; animation-duration: 420s; }
+    #niflheim { top: 50%; left: 50%; width: 50px; height: 50px; animation-duration: 500s; }
+    
+    .valheim-title {
+        text-align: center;
+        z-index: 2;
+        margin-bottom: 40px;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
+    }
+    
+    .valheim-title h1 {
+        font-size: 4rem;
+        letter-spacing: 10px;
+        margin-bottom: 10px;
+        color: #d4af37;
+    }
+    
+    .valheim-title p {
+        font-size: 1.2rem;
+        color: #a89267;
+        font-style: italic;
+    }
+    
+    .odin-warning {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        text-align: right;
+        z-index: 2;
+        opacity: 0.7;
+    }
+    
+    .raven {
+        font-size: 2rem;
+        margin-bottom: 5px;
+        animation: raven-fly 20s infinite linear;
+    }
+    
+    .runic-display {
+        display: flex;
+        justify-content: center;
+        gap: 15px;
+        margin: 30px 0;
+        z-index: 2;
+    }
+    
+    .rune {
+        font-size: 2.5rem;
+        padding: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid #d4af37;
+        border-radius: 5px;
+        animation: rune-glow 5s infinite alternate;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    }
+    
+    .rune:hover {
+        transform: scale(1.2);
+        background: rgba(212, 175, 55, 0.2);
+    }
+    
+    .norse-text {
+        text-align: center;
+        z-index: 2;
+        font-size: 1.2rem;
+        color: #a89267;
+        margin-top: 20px;
+        font-style: italic;
+    }
+    
+    @keyframes tree-pulse {
+        0%, 100% { opacity: 0.5; }
+        50% { opacity: 0.8; }
+    }
+    
+    @keyframes realm-orbit {
+        from { transform: rotate(0deg) translateX(150px) rotate(0deg); }
+        to { transform: rotate(360deg) translateX(150px) rotate(-360deg); }
+    }
+    
+    @keyframes raven-fly {
+        0%, 100% { transform: translateX(0) translateY(0); }
+        25% { transform: translateX(-10px) translateY(-5px); }
+        50% { transform: translateX(0) translateY(-10px); }
+        75% { transform: translateX(10px) translateY(-5px); }
+    }
+    
+    @keyframes rune-glow {
+        0% { text-shadow: 0 0 5px rgba(212, 175, 55, 0.5); }
+        100% { text-shadow: 0 0 15px rgba(212, 175, 55, 1), 0 0 20px rgba(212, 175, 55, 0.7); }
+    }
+</style>
+
+<script>
+    (function yggdrasilScreensaver() {
+        // Анимация рун
+        const runes = document.querySelectorAll('.rune');
+        
+        runes.forEach(rune => {
+            // Случайная задержка анимации для каждой руны
+            const randomDelay = Math.random() * 5;
+            rune.style.animationDelay = `${randomDelay}s`;
+            
+            // Эффект при клике на руну
+            rune.addEventListener('click', function() {
+                this.style.animation = 'none';
+                this.offsetHeight; // Trigger reflow
+                this.style.animation = null;
+                
+                // Изменение текста при клике
+                const norseText = document.querySelector('.norse-text p');
+                const runeMeanings = {
+                    'fehu': "ᚠ - Скот, богатство",
+                    'uruz': "ᚢ - Зубр, сила",
+                    'thurisaz': "ᚦ - Великан, опасность",
+                    'ansuz': "ᚨ - Бог, Один",
+                    'raido': "ᚱ - Путешествие, колесница",
+                    'kaunan': "ᚲ - Факел, язва",
+                    'gebo': "ᚷ - Дар, партнерство",
+                    'wunjo': "ᚹ - Радость, слава"
+                };
+                
+                const meaning = runeMeanings[this.dataset.rune];
+                if (meaning) {
+                    norseText.textContent = meaning;
+                    
+                    // Возврат оригинального текста через 5 секунд
+                    setTimeout(() => {
+                        norseText.textContent = "Þórr berr hamarinn Mjölnir";
+                    }, 5000);
+                }
+            });
+        });
+        
+        // Периодическая смена текста
+        const norsePhrases = [
+            "Þórr berr hamarinn Mjölnir",
+            "Óðinn er Alföðr",
+            "Valhǫll er salr Óðins",
+            "Yggdrasill askr standandi",
+            "Deyr fé, deyja frændr",
+            "Skuld hlífir sem Skögul",
+            "Huginn ok Muninn fljúga hverjan dag",
+            "Valheim er him tíundi heimr"
+        ];
+        
+        let phraseIndex = 0;
+        setInterval(() => {
+            const norseText = document.querySelector('.norse-text p');
+            phraseIndex = (phraseIndex + 1) % norsePhrases.length;
+            norseText.style.opacity = 0;
+            
+            setTimeout(() => {
+                norseText.textContent = norsePhrases[phraseIndex];
+                norseText.style.opacity = 1;
+            }, 1000);
+        }, 10000);
+    })();
+</script>
