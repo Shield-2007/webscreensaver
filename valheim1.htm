@@ -1,265 +1,281 @@
-<div id="jormungandr-screensaver">
-    <div class="ocean-depths"></div>
-    <div class="serpent" id="serpent-body">
-        <div class="serpent-head">
-            <div class="serpent-eye"></div>
+<div id="valhalla-screensaver">
+    <div class="great-hall">
+        <div class="pillar left"></div>
+        <div class="pillar right"></div>
+        <div class="throne"></div>
+        <div class="firepit"></div>
+    </div>
+    
+    <div class="valkyrie">
+        <div class="valkyrie-wing left"></div>
+        <div class="valkyrie-wing right"></div>
+        <div class="valkyrie-helmet"></div>
+    </div>
+    
+    <div class="einherjar">
+        <div class="warrior" id="warrior1"></div>
+        <div class="warrior" id="warrior2"></div>
+        <div class="warrior" id="warrior3"></div>
+        <div class="warrior" id="warrior4"></div>
+    </div>
+    
+    <div class="feast-table">
+        <div class="tankard"></div>
+        <div class="tankard"></div>
+        <div class="tankard"></div>
+    </div>
+    
+    <div class="odin-throne">
+        <div class="odin-silhouette"></div>
+        <div class="ravens">
+            <div class="raven" id="hugin">ᚺ</div>
+            <div class="raven" id="muninn">ᛗ</div>
         </div>
     </div>
     
-    <div class="viking-ship">
-        <div class="sail"></div>
-        <div class="dragon-head"></div>
-    </div>
-    
-    <div class="depth-indicator">
-        <span>ГЛУБИНА: </span>
-        <span id="depth-value">157М</span>
-    </div>
-    
-    <div class="norse-compass">
-        <div class="compass-point" data-direction="N">N</div>
-        <div class="compass-point" data-direction="E">E</div>
-        <div class="compass-point" data-direction="S">S</div>
-        <div class="compass-point" data-direction="W">W</div>
-        <div class="compass-needle"></div>
-    </div>
-    
-    <div class="runestone">
-        <div class="runestone-text">ᚦᚨᛏ ᛁᛋ ᚾᛟᛏ ᛞᛖᚨᛏᚺ ᛏᚺᚨᛏ ᛁᛋ ᛏᚺᛖ ᛖᚾᛞ</div>
-        <div class="runestone-translation">That is not death that is the end</div>
+    <div class="valhalla-text">
+        <h1>VALHǪLL</h1>
+        <p>Зал павших. Куда смелые воины попадают после смерти</p>
     </div>
 </div>
 
 <style>
     @import url('https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap');
     
-    #jormungandr-screensaver {
+    #valhalla-screensaver {
         position: fixed;
         top: 0; left: 0;
         width: 100%; height: 100%;
-        background: linear-gradient(180deg, #041a2e 0%, #0a2b4e 40%, #083358 100%);
+        background: linear-gradient(135deg, #1a0a0a 0%, #2d1a1a 50%, #1a0a0a 100%);
         z-index: 10000;
         overflow: hidden;
         font-family: 'MedievalSharp', cursive;
-        color: #a8c6e0;
+        color: #d4af37;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     
-    .ocean-depths {
+    .great-hall {
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
         background-image: 
-            radial-gradient(circle at 20% 30%, rgba(0, 100, 150, 0.3) 0%, transparent 20%),
-            radial-gradient(circle at 80% 70%, rgba(0, 70, 120, 0.3) 0%, transparent 20%),
-            linear-gradient(180deg, transparent 70%, rgba(0, 0, 0, 0.7) 100%);
-        animation: water-shimmer 15s infinite alternate;
+            linear-gradient(to bottom, transparent 60%, rgba(0, 0, 0, 0.7) 100%),
+            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M0,50 L100,50 M0,60 L100,60 M0,70 L100,70 M0,80 L100,80 M0,90 L100,90' stroke='%235a3921' stroke-width='0.5' fill='none'/%3E%3C/svg%3E");
+        background-size: cover, 200px 200px;
+        opacity: 0.8;
     }
     
-    .serpent {
+    .pillar {
         position: absolute;
-        bottom: 30%; left: -300px;
-        width: 600px; height: 40px;
-        background: linear-gradient(to right, #1a3b2a, #2d5e46, #1a3b2a);
-        border-radius: 20px;
-        animation: serpent-swim 30s infinite linear;
-        z-index: 2;
+        top: 0; bottom: 0;
+        width: 20px;
+        background: linear-gradient(to bottom, #5a3921, #3a2315);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
     
-    .serpent-head {
-        position: absolute;
-        right: -20px; top: -10px;
-        width: 60px; height: 60px;
-        background: #2d5e46;
-        border-radius: 50%;
-        transform: rotate(10deg);
-    }
+    .pillar.left { left: 30%; }
+    .pillar.right { right: 30%; }
     
-    .serpent-eye {
-        position: absolute;
-        top: 20px; right: 10px;
-        width: 15px; height: 15px;
-        background: #ff0000;
-        border-radius: 50%;
-        box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5);
-        animation: eye-glow 3s infinite alternate;
-    }
-    
-    .viking-ship {
-        position: absolute;
-        bottom: 20%; right: -200px;
-        width: 150px; height: 80px;
-        animation: ship-float 40s infinite linear;
-        z-index: 3;
-    }
-    
-    .sail {
-        position: absolute;
-        top: -60px; left: 50px;
-        width: 40px; height: 70px;
-        background: linear-gradient(to right, #d4af37, #f5e9c8);
-        clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
-        animation: sail-billow 5s infinite alternate ease-in-out;
-    }
-    
-    .dragon-head {
-        position: absolute;
-        top: -30px; left: 0;
-        width: 30px; height: 30px;
-        background: #5a3921;
-        clip-path: polygon(0 50%, 100% 0, 100% 100%);
-    }
-    
-    .depth-indicator {
-        position: absolute;
-        bottom: 20px; left: 20px;
-        font-size: 1.2rem;
-        color: #a8c6e0;
-        text-shadow: 0 0 5px rgba(0, 0, 0, 0.7);
-        z-index: 2;
-    }
-    
-    .norse-compass {
-        position: absolute;
-        top: 20px; right: 20px;
-        width: 100px; height: 100px;
-        border: 2px solid #d4af37;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 2;
-    }
-    
-    .compass-point {
-        position: absolute;
-        font-size: 1rem;
-        color: #d4af37;
-    }
-    
-    .compass-point[data-direction="N"] { top: 5px; left: 50%; transform: translateX(-50%); }
-    .compass-point[data-direction="E"] { top: 50%; right: 5px; transform: translateY(-50%); }
-    .compass-point[data-direction="S"] { bottom: 5px; left: 50%; transform: translateX(-50%); }
-    .compass-point[data-direction="W"] { top: 50%; left: 5px; transform: translateY(-50%); }
-    
-    .compass-needle {
-        position: absolute;
-        width: 2px; height: 40px;
-        background: #d4af37;
-        transform-origin: bottom center;
-        animation: compass-spin 20s infinite linear;
-    }
-    
-    .runestone {
+    .throne {
         position: absolute;
         top: 50%; left: 50%;
         transform: translate(-50%, -50%);
-        background: rgba(90, 57, 33, 0.8);
-        border: 2px solid #5a3921;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        z-index: 2;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        width: 100px; height: 150px;
+        background: linear-gradient(to bottom, #d4af37, #aa8a30);
+        clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+        opacity: 0.7;
     }
     
-    .runestone-text {
-        font-size: 2rem;
+    .firepit {
+        position: absolute;
+        bottom: 20%; left: 50%;
+        transform: translateX(-50%);
+        width: 100px; height: 40px;
+        background: radial-gradient(ellipse, #ff5500, #ff0000, transparent 70%);
+        border-radius: 50%;
+        animation: fire-flicker 3s infinite alternate;
+    }
+    
+    .valkyrie {
+        position: absolute;
+        top: 40%; left: 60%;
+        width: 40px; height: 80px;
+        animation: valkyrie-float 20s infinite ease-in-out;
+        z-index: 2;
+    }
+    
+    .valkyrie-wing {
+        position: absolute;
+        top: 0;
+        width: 30px; height: 60px;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(200, 200, 255, 0.5));
+        clip-path: polygon(0 0, 100% 0, 70% 100%, 30% 100%);
+        animation: wing-flap 4s infinite alternate;
+    }
+    
+    .valkyrie-wing.left {
+        left: -20px;
+        transform-origin: right center;
+    }
+    
+    .valkyrie-wing.right {
+        right: -20px;
+        transform-origin: left center;
+    }
+    
+    .valkyrie-helmet {
+        position: absolute;
+        top: 10px; left: 50%;
+        transform: translateX(-50%);
+        width: 20px; height: 25px;
+        background: #d4af37;
+        clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+    }
+    
+    .einherjar {
+        position: absolute;
+        bottom: 20%; left: 0;
+        width: 100%; height: 100px;
+    }
+    
+    .warrior {
+        position: absolute;
+        bottom: 0;
+        width: 30px; height: 60px;
+        background: linear-gradient(to top, #333, #666);
+        animation: warrior-celebrate 8s infinite ease-in-out;
+    }
+    
+    #warrior1 { left: 20%; animation-delay: 0s; }
+    #warrior2 { left: 35%; animation-delay: 1s; }
+    #warrior3 { left: 65%; animation-delay: 2s; }
+    #warrior4 { left: 80%; animation-delay: 3s; }
+    
+    .feast-table {
+        position: absolute;
+        bottom: 25%; left: 50%;
+        transform: translateX(-50%);
+        width: 300px; height: 20px;
+        background: linear-gradient(to bottom, #5a3921, #3a2315);
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        padding: 0 20px;
+    }
+    
+    .tankard {
+        width: 15px; height: 20px;
+        background: linear-gradient(to bottom, #d4af37, #aa8a30);
+        clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+        animation: tankard-shine 5s infinite alternate;
+    }
+    
+    .odin-throne {
+        position: absolute;
+        top: 20%; left: 50%;
+        transform: translateX(-50%);
+        width: 80px; height: 120px;
+        z-index: 2;
+    }
+    
+    .odin-silhouette {
+        position: absolute;
+        bottom: 0; left: 50%;
+        transform: translateX(-50%);
+        width: 40px; height: 80px;
+        background: linear-gradient(to top, #000, #333);
+        clip-path: polygon(0 0, 100% 0, 80% 100%, 20% 100%);
+    }
+    
+    .ravens {
+        position: absolute;
+        top: -30px; left: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .raven {
+        font-size: 1.5rem;
+        animation: raven-circle 15s infinite linear;
+    }
+    
+    .valhalla-text {
+        position: absolute;
+        top: 50px; left: 0;
+        width: 100%;
+        text-align: center;
+        z-index: 2;
+    }
+    
+    .valhalla-text h1 {
+        font-size: 3rem;
+        letter-spacing: 5px;
         color: #d4af37;
+        text-shadow: 0 0 10px rgba(212, 175, 55, 0.7);
         margin-bottom: 10px;
     }
     
-    .runestone-translation {
-        font-size: 1rem;
-        color: #a8c6e0;
+    .valhalla-text p {
+        font-size: 1.2rem;
+        color: #a89267;
         font-style: italic;
     }
     
-    @keyframes water-shimmer {
-        0% { background-position: 0 0, 0 0; }
-        100% { background-position: 50px 50px, -50px -50px; }
+    @keyframes fire-flicker {
+        0% { opacity: 0.7; height: 40px; }
+        50% { opacity: 1; height: 60px; }
+        100% { opacity: 0.7; height: 40px; }
     }
     
-    @keyframes serpent-swim {
-        0% { left: -300px; transform: translateY(0) rotate(0deg); }
-        25% { transform: translateY(-20px) rotate(-2deg); }
-        50% { transform: translateY(0) rotate(0deg); }
-        75% { transform: translateY(20px) rotate(2deg); }
-        100% { left: calc(100% + 300px); transform: translateY(0) rotate(0deg); }
+    @keyframes valkyrie-float {
+        0%, 100% { transform: translateY(0) translateX(0); }
+        25% { transform: translateY(-20px) translateX(-20px); }
+        50% { transform: translateY(0) translateX(-40px); }
+        75% { transform: translateY(20px) translateX(-20px); }
     }
     
-    @keyframes eye-glow {
-        0% { box-shadow: 0 0 10px 5px rgba(255, 0, 0, 0.5); }
-        100% { box-shadow: 0 0 20px 10px rgba(255, 0, 0, 0.8); }
+    @keyframes wing-flap {
+        0% { transform: rotate(-5deg); }
+        100% { transform: rotate(5deg); }
     }
     
-    @keyframes ship-float {
-        0% { right: -200px; transform: translateY(0) rotate(0deg); }
-        25% { transform: translateY(-10px) rotate(2deg); }
-        50% { transform: translateY(0) rotate(0deg); }
-        75% { transform: translateY(10px) rotate(-2deg); }
-        100% { right: calc(100% + 200px); transform: translateY(0) rotate(0deg); }
+    @keyframes warrior-celebrate {
+        0%, 100% { transform: translateY(0); height: 60px; }
+        50% { transform: translateY(-20px); height: 70px; }
     }
     
-    @keyframes sail-billow {
-        0% { transform: translateX(0) skewX(0deg); }
-        100% { transform: translateX(5px) skewX(5deg); }
+    @keyframes tankard-shine {
+        0% { opacity: 0.7; }
+        100% { opacity: 1; }
     }
     
-    @keyframes compass-spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
+    @keyframes raven-circle {
+        0% { transform: rotate(0deg) translateX(40px) rotate(0deg); }
+        100% { transform: rotate(360deg) translateX(40px) rotate(-360deg); }
     }
 </style>
 
 <script>
-    (function jormungandrScreensaver() {
-        // Анимация изменения глубины
-        const depthElement = document.getElementById('depth-value');
-        let depth = 157;
+    (function valhallaScreensaver() {
+        // Анимация мерцания огня
+        const firepit = document.querySelector('.firepit');
+        setInterval(() => {
+            const size = 80 + Math.floor(Math.random() * 40);
+            firepit.style.width = `${size}px`;
+        }, 300);
+        
+        // Перемещение валькирии
+        const valkyrie = document.querySelector('.valkyrie');
+        let position = 0;
         
         setInterval(() => {
-            depth = 150 + Math.floor(Math.random() * 20);
-            depthElement.textContent = `${depth}М`;
-        }, 3000);
-        
-        // Создание пузырей воздуха
-        function createBubble() {
-            const bubble = document.createElement('div');
-            bubble.classList.add('bubble');
-            
-            const size = 2 + Math.random() * 8;
-            const left = Math.random() * 100;
-            const duration = 5 + Math.random() * 10;
-            
-            bubble.style.width = `${size}px`;
-            bubble.style.height = `${size}px`;
-            bubble.style.left = `${left}%`;
-            bubble.style.bottom = '0';
-            bubble.style.position = 'absolute';
-            bubble.style.background = 'rgba(255, 255, 255, 0.5)';
-            bubble.style.borderRadius = '50%';
-            bubble.style.animation = `bubble-rise ${duration}s linear forwards`;
-            
-            document.getElementById('jormungandr-screensaver').appendChild(bubble);
-            
-            // Удаление пузыря после завершения анимации
-            setTimeout(() => {
-                bubble.remove();
-            }, duration * 1000);
-        }
-        
-        // Добавление стилей для пузырей
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes bubble-rise {
-                0% { transform: translateY(0) scale(1); opacity: 0.7; }
-                50% { transform: translateY(-50vh) scale(1.2); opacity: 0.4; }
-                100% { transform: translateY(-100vh) scale(1.5); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(style);
-        
-        // Создание пузырей каждые 0.5-2 секунды
-        setInterval(createBubble, 800);
+            position = (position + 1) % 100;
+            valkyrie.style.left = `${40 + Math.sin(position * 0.1) * 30}%`;
+            valkyrie.style.top = `${30 + Math.cos(position * 0.05) * 20}%`;
+        }, 100);
     })();
 </script>
